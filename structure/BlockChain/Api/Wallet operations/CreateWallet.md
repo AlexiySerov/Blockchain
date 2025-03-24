@@ -1,0 +1,4 @@
+
+-Create passphrase
+-Create hashcode
+

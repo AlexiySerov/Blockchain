@@ -10,8 +10,13 @@ repositories {
 }
 
 dependencies {
-        // https://mvnrepository.com/artifact/io.netty/netty-all
+    // https://mvnrepository.com/artifact/io.netty/netty-all
     implementation 'io.netty:netty-all:4.1.117.Final'
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation 'com.google.code.gson:gson:2.12.1'
+
+    //implementation 'org.fusesource.leveldbjni:leveldbjni:1.8'
+    implementation 'org.fusesource.leveldbjni:leveldbjni-all:1.8'
 
     implementation 'org.fusesource.leveldbjni:leveldbjni:1.8'
     implementation 'jakarta.servlet:jakarta.servlet-api:6.1.0'
