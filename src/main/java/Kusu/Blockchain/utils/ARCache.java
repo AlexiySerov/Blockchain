@@ -67,20 +67,22 @@ public class ARCache<K, V> {
             if (T1.size() > p) {
                 // Вытесняем из T1
                 K lastKey = T1.keySet().iterator().next();
-                B1.put(lastKey, T1.remove(lastKey));
+                T1.remove(lastKey);
+                B1.add(lastKey);
             } else {
                 // Вытесняем из T2
                 K lastKey = T2.keySet().iterator().next();
-                B2.put(lastKey, T2.remove(lastKey));
+                T2.remove(lastKey);
+                B2.add(lastKey);
             }
         }
     }
 
     private void replace(K key) {
-        if (B1.containsKey(key)) {
+        if (B1.contains(key)) {
             // Элемент был в T1 → увеличиваем приоритет T2
             p = Math.min(p + 1, cacheSize);
-        } else if (B2.containsKey(key)) {
+        } else if (B2.contains(key)) {
             // Элемент был в T2 → уменьшаем приоритет T2
             p = Math.max(p - 1, 0);
         }
