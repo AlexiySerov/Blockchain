@@ -6,6 +6,10 @@ import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class MainPathHandler implements PathHandlerInterface {
 
@@ -17,6 +21,7 @@ public class MainPathHandler implements PathHandlerInterface {
 
     @Override
     public FullHttpResponse handle(HttpRequest request, ByteBuf body) {
+        Logger log = Logger.getLogger("ServerHandler");
 
         try {
             switch (request.uri()){

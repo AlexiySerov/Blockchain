@@ -1,51 +1,102 @@
 package Kusu.Blockchain.datamodels;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 public class Wallet implements Serializable {
 
-    private byte[] hashCode;
     private Long balance;
     private Map<byte[], Long> currencies;
-    private List<byte[]> property;
+    private Set<byte[]> properties;
     private Queue<byte[]> transactionHistory;
 
-    public byte[] getHashCode() {
-        return hashCode;
+    private final Object walletLock = new Object();
+
+    public Wallet(){
+        this.balance = 0l;
+        this.currencies = new HashMap<>();
+        this.properties = new HashSet<>();
+        this.transactionHistory = new LinkedList<>();
+    }
+
+    public Wallet(Long balance, Map<byte[], Long> currencies, Set<byte[]> properties, Queue<byte[]> transactionHistory){
+        this.balance = balance;
+        this.currencies = currencies;
+        this.properties = properties;
+        this.transactionHistory = transactionHistory;
     }
 
     public Long getBalance() {
-        return balance;
+        synchronized (walletLock) {
+            return balance;
+        }
     }
 
-    public void setBalance(Long balance) {
-        this.balance = balance;
+    public void deposit(int amount) {
+        synchronized (walletLock) {
+            this.balance += amount;
+        }
+    }
+
+    public void withdraw(int amount) {
+        synchronized (walletLock) {
+            if (this.balance >= amount) {
+                this.balance -= amount;
+            }
+        }
     }
 
     public Map<byte[], Long> getCurrencies() {
-        return currencies;
+        synchronized (walletLock) {
+            return currencies;
+        }
     }
 
-    public void setCurrencies(Map<byte[], Long> currencies) {
-        this.currencies = currencies;
+    public Long getCurrency(byte[] currency) {
+        synchronized (walletLock) {
+            return currencies.get(currency);
+        }
     }
 
-    public List<byte[]> getProperty() {
-        return property;
+    public void depositCurrency(byte[] currency, int amount) {
+        synchronized (walletLock) {
+            currencies.put(currency, currencies.get(currency) + amount);
+        }
     }
 
-    public void setProperty(List<byte[]> property) {
-        this.property = property;
+    public void withdrawCurrency(byte[] currency, int amount) {
+        synchronized (walletLock) {
+            currencies.put(currency, currencies.get(currency) - amount);
+        }
+    }
+
+    public Set<byte[]> getProperties() {
+        synchronized (walletLock) {
+            return properties;
+        }
+    }
+
+    public void addProperty(byte[] property) {
+        synchronized (walletLock) {
+            properties.add(property);
+        }
+    }
+
+    public void removeProperty(byte[] property) {
+        synchronized (walletLock) {
+            properties.remove(property);
+        }
     }
 
     public Queue<byte[]> getTransactionHistory() {
-        return transactionHistory;
+        synchronized (walletLock) {
+            return transactionHistory;
+        }
     }
 
-    public void setTransactionHistory(Queue<byte[]> transactionHistory) {
-        this.transactionHistory = transactionHistory;
+    public void addTransaction(byte[] transaction) {
+        synchronized (walletLock) {
+            this.transactionHistory.add(transaction);
+        }
     }
 }

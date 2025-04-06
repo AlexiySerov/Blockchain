@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class PassPhraseGenerator {
 
@@ -21,7 +22,6 @@ public class PassPhraseGenerator {
         return words;
     }
 
-
     public static String[] generate(){
         Random random = new Random();
         String[] passphrase = new String[24];
@@ -36,6 +36,10 @@ public class PassPhraseGenerator {
         }
 
         return passphrase;
+    }
+
+    public static String passphraseToString(String[] passphrase){
+        return String.join(" ", passphrase);
     }
 
 }

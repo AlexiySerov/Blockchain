@@ -23,6 +23,10 @@ public class SHA512 {
         for (byte b : hash) {
             sb.append(String.format("%02x", b));
         }
+
+        if (sb.length() % 2 != 0) return "0" + sb;
+
+
         return sb.toString();
     }
 

@@ -1,6 +1,6 @@
 package Kusu.Blockchain.netty.client;
 
-import Kusu.Blockchain.netty.server.ServerUtil;
+import Kusu.Blockchain.utils.ServerUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

@@ -3,7 +3,7 @@ package Kusu.Blockchain.utils;
 import java.io.*;
 
 public class ByteSerialize {
-    static byte[] serialize(final Object obj) {
+    public static byte[] serialize(final Object obj) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try (ObjectOutputStream out = new ObjectOutputStream(bos)) {
             out.writeObject(obj);
@@ -14,7 +14,7 @@ public class ByteSerialize {
         }
     }
 
-    static Object deserialize(byte[] bytes) {
+    public static Object deserialize(byte[] bytes) {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
 
         try (ObjectInput in = new ObjectInputStream(bis)) {

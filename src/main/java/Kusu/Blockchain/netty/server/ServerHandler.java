@@ -7,11 +7,16 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.*;
 
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Handler implementation for the echo server.
  */
 @Sharable
 public class ServerHandler extends ChannelInboundHandlerAdapter {
+    Logger log = Logger.getLogger("ServerHandler");
 
     private final MainPathHandler mainPathHandler = new MainPathHandler();
 
@@ -20,11 +25,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         if (msg instanceof HttpRequest request) {
             ByteBuf httpContent = ((HttpContent) msg).content();
 
-            System.out.println("Received request: " + request.method() + " " + request.uri());
-
+            log.log(Level.INFO, "Received request: " + request.method() + " " + request.uri());
 
             FullHttpResponse response = mainPathHandler.handle(request, httpContent);
-
 
             response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/plain");
             response.headers().set(HttpHeaderNames.CONTENT_LENGTH, response.content().readableBytes());

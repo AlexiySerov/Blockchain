@@ -1,4 +1,4 @@
-package Kusu.Blockchain.netty.server;
+package Kusu.Blockchain.utils;
 
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
