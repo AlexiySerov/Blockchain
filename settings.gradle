@@ -1,2 +1,10 @@
 rootProject.name = 'Blockchain'
+include 'modules:App'
+findProject(':modules:App')?.name = 'App'
+include 'modules:WalletModule'
+findProject(':modules:WalletModule')?.name = 'WalletModule'
+include 'modules:TransactionModule'
+findProject(':modules:TransactionModule')?.name = 'TransactionModule'
+include 'modules:SignModule'
+findProject(':modules:SignModule')?.name = 'SignModule'
 
